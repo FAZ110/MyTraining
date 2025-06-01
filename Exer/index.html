@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button>Click me</button>
+        <h3>Number of clicks: <span id="clicks">0</span></h3>
+
+
+        <input type="text" id="input" placeholder="Enter some text">
+        <button id="button_txt">Click to send</button>
+        <p id="output"></p>
+
+
+    </div>
+
+    <div class="calc">
+        <input type="number" id="input_val" placeholder="Enter the number">
+        <h3 id="value"></h3>
+        <button id="button_calc">Click to evaluate</button>
+    </div>
+
+    <div class="quiz">
+        <div class="question">
+            <h3>Question 1</h3>
+            <fieldset>
+                <legend>What is the value of 3+5?</legend>
+                
+                <input type="checkbox" id="answer11" value="2">
+                <label for="answer11">2</label>
+                
+                <input type="checkbox" id="answer12" value="8">
+                <label for="answer12">8</label>
+                
+                <input type="checkbox" id="answer13" value="9">
+                <label for="answer13">9</label>
+            </fieldset>
+            
+        </div>
+
+        <div class="question">
+            <h3>Question 2</h3>
+            <fieldset>
+                <legend>What is the capital city of Poland?</legend>
+                
+                <input type="checkbox" id="answer21" value="Warsaw">
+                <label for="answer21">Warsaw</label>
+                
+                <input type="checkbox" id="answer22" value="Moscow">
+                <label for="answer22">Moscow</label>
+                
+                <input type="checkbox" id="answer23" value="Berlin">
+                <label for="answer23">Berlin</label>
+            </fieldset>
+            
+        </div>
+
+        <button id="send_button">send</button>
+
+        <h2 id="Score"></h2>
+    </div>
+
+
+    
+</body>
+<script src="script.js"></script>
+</html>
