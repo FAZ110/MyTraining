@@ -1,0 +1,80 @@
+*{
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+header{
+    margin-bottom: 50px ;
+    font-size: 3rem;
+}
+
+.user-input{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-input input{
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 4px;
+}
+
+.user-input button{
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.user-input button:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.note-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+.note button{
+    background-color: red;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.note{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.note button:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.note li{
+    list-style: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
