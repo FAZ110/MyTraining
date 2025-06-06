@@ -1,7 +1,13 @@
 const userInput = document.getElementById('input');
 const addNote = document.getElementById('addNote');
-const deleteNote = document.getElementById('deleteNote');
 const noteContainer = document.querySelector('.note-container');
+
+function addDeleteListener(btn) {
+    btn.addEventListener('click', () => {
+        const note = btn.parentElement;
+        noteContainer.removeChild(note);
+    });
+}
 
 addNote.addEventListener('click', () => {
     if (userInput.value != ''){
@@ -13,16 +19,21 @@ addNote.addEventListener('click', () => {
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
-        deleteBtn.id = 'deleteNote';
+        deleteBtn.classList.add('deleteNote');
 
         note.appendChild(li);
         note.appendChild(deleteBtn);
         
         noteContainer.appendChild(note);
         userInput.value = '';
+        
+        addDeleteListener(deleteBtn);
     }
     else{
         alert('Task cannot be empty')
     }
 })
 
+document.querySelectorAll('.deleteNote').forEach(btn => {
+    addDeleteListener(btn);
+})
