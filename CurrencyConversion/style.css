@@ -8,6 +8,10 @@ body{
     /* background: linear-gradient(90deg, rgb(73, 245, 219), rgb(113, 60, 230)); */
     height: 100vh;
     background: linear-gradient(45deg, rgb(206, 203, 212), white, white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 header{
@@ -21,6 +25,7 @@ header{
 main{
     margin-top: 100px;
     margin: 100px;
+    max-width: 500px;
     
     display: flex;
     flex-direction: column;
@@ -47,4 +52,79 @@ main{
 
 .input-container select{
     min-width: 50px;
+    border-radius: 5px;;
+}
+
+.input-container input{
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Remove number input spinners */
+.input-container input[type="number"]::-webkit-inner-spin-button,
+.input-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-container input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.options{
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    
+}
+
+.container #to{
+    border-radius: 5px;
+    min-width: 100px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.output-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    /* background-color: bisque; */
+}
+
+.output-container button{
+    padding:10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid #000;
+    /* height: 50px; */
+}
+
+.output-container button:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.output-container p{
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 50%;
+    text-align: center;
 }
