@@ -5,6 +5,7 @@ async function loadCurrencies(){
     try{
         const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
         const data = await response.json();
+        console.log(data);
 
 
         exchangeRates = data.rates;
