@@ -44,9 +44,9 @@ main{
     display: flex;
     gap: 10px;
     margin-top: 20px;
-    /* background-color: bisque; */
     align-items: center;
-
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .input-container input{
@@ -54,6 +54,8 @@ main{
     border-radius: 10px;
     height: 40px;
     font-size: 18px;
+    padding-left: 10px;
+
 
 }
 
@@ -72,8 +74,16 @@ main{
 }
 
 .input-container button img{
-    /* height: 50%; */
     width: 30%;
+}
+
+#error{
+    display: none;
+    color: black;
+    font-size: 14px;
+    margin-top: 5px;
+    position: absolute;
+    transform: translateY(40px);
 }
 
 .output-container{
@@ -82,6 +92,8 @@ main{
     justify-content: center;
     align-items: center;
     gap: 10px;
+    display: none;
+    
 }
 
 .output-container .temp{
