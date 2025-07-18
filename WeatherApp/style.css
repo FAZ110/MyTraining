@@ -21,8 +21,11 @@ header{
     justify-content: center;
     font-size: 1.5rem;
     margin-top:10px;
-    
+    width: 100%;
+    position: relative;
 }
+
+
 
 main{
     background: linear-gradient(135deg, #00b4d8, #007bff);

@@ -66,3 +66,4 @@ btn.addEventListener('click', ()=> {
     checkWeather(input.value);
 })
 
+

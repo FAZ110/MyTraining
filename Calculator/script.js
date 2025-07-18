@@ -3,7 +3,7 @@ const buttons = document.querySelectorAll(".calculator button");
 
 const operator = ["+", "-", "*", "/"];
 let currentOperator = null;
-let evaluation = null;;
+let evaluation = null;
 
 
 
