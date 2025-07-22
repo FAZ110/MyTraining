@@ -84,6 +84,19 @@ const getDeck = () => {
     return deck
 }
 
+const printDeck = (deck) => {
+    let output = "";
+    for (const [idx, card] of Object.entries(deck)){
+        if (idx == deck.length-1){
+            output += card
+        }else{
+            output += card + ", "
+        }
+    
+    }
+    console.log(output)
+}
+
 
 const start = (deck) => {
     const playerCards = [];
@@ -175,8 +188,13 @@ const game = () => {
 const deck = getDeck();
 
 const started = start(deck)
-console.log(started.playerCards, started.croupierCards)
-// const sumPlayer = sumPoints(['A','4', 'A', '3'])
+
+console.log("Your cards: ")
+printDeck(started.playerCards)
+console.log("Croupier cards: ")
+printDeck(started.croupierCards)
+
+let flag = NaN;
 
 while (true){
     console.log("Your cards: "+ started.playerCards)
@@ -184,6 +202,7 @@ while (true){
     console.log("You have "+ currPoints + " points")
     if (currPoints > 21){
         console.log("You lost with " + currPoints + " points")
+        flag = false
         break
     }
 
@@ -202,7 +221,6 @@ while (true){
 // console.log(started.deck)
 
 const afterCroupierTurn = croupierTurn(started.deck, started.croupierCards, started.hiddenCard)
-
 
 
 
