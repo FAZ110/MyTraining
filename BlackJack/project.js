@@ -135,8 +135,9 @@ const hit = (playerCards, deck) => {
 const sumPoints = (deckCards) => {
     let sum = 0;
     let cntAces = 0;
+    const len = deckCards.length
 
-    for (let i = 0; i < deckCards.length; i++){
+    for (let i = 0; i < len; i++){
         if (deckCards[i] == 'A'){
             sum += 11
             cntAces += 1
@@ -150,8 +151,6 @@ const sumPoints = (deckCards) => {
         sum -= 10
         cntAces -= 1
     }
-    // console.log("You have " + sum + " points")
-
     return sum
 
 }
@@ -159,18 +158,45 @@ const sumPoints = (deckCards) => {
 
 const croupierTurn = (deckCards, croupierCards, hiddenCard) => {
     croupierCards[1] = hiddenCard
-    console.log("The hidden card is " + hiddenCard)
+    // console.log("The hidden card is " + hiddenCard)
     console.log("Croupier Cards: " + croupierCards)
     let croupierSum = sumPoints(croupierCards)
 
     while (croupierSum < 17){
         hit(croupierCards, deckCards)
-        console.log(croupierCards)
+        console.log("Croupier cards: ")
+        printDeck(croupierCards)
         croupierSum = sumPoints(croupierCards)
     }
+    console.log("Croupier final score: "+ croupierSum)
 
     return croupierCards
 
+}
+
+const determineWinner = (playerCards, croupierCards) => {
+    const sumPlayer = sumPoints(playerCards)
+    const sumCroupier = sumPoints(croupierCards)
+    let result = NaN;
+
+    if (sumPlayer > 21){
+        result = "lost"
+        console.log("You lost!")
+    }else if (sumCroupier > 21){
+        result = "won"
+        console.log("You won!")
+    }else if (sumPlayer > sumCroupier){
+        result = "won"
+        console.log("You won!")
+    }else if (sumPlayer < sumCroupier){
+        result = "lost"
+        console.log("You lost!")
+    }else{
+        win = "draw"
+        console.log("It's a draw")
+    }
+
+    return result
 }
 
 
@@ -178,49 +204,73 @@ const croupierTurn = (deckCards, croupierCards, hiddenCard) => {
 
 
 const game = () => {
+    let balance = getBalance();
+
+    while(balance > 0){
+        const bet = getBet(balance);
+        balance -= bet;
+        const deck = getDeck();
+
+        const started = start(deck)
+
+        console.log("Your cards: ")
+        printDeck(started.playerCards)
+        console.log("Croupier cards: ")
+        printDeck(started.croupierCards)
+
+
+
+        while (true){
+            console.log("Your cards: "+ started.playerCards)
+            const currPoints = sumPoints(started.playerCards)
+            console.log("You have "+ currPoints + " points")
+            if (currPoints > 21){
+                
+                break
+            }
+
+
+            const cont = prompt("hit or stand? (h/s): ")
+            if (cont == "h"){
+                hit(started.playerCards, started.deck);
+            }else if (cont == "s"){
+                const final = currPoints
+                console.log("Your final score is " + final)
+                break
+            }else{
+                console.log("Wrong symbol, try again!")
+            }
+        }
+
+        const afterCroupierTurn = croupierTurn(started.deck, started.croupierCards, started.hiddenCard)
+
+        const result = determineWinner(started.playerCards, afterCroupierTurn)
+
+        if (result == "won"){
+            balance += 2*bet;
+        }else if(result == "draw"){
+            balance += bet
+        }
+
+        console.log("Your balance is " + balance)
+
+        const decision = prompt("Do you want to keep playing? (y/n)")
+
+        if (decision == "n"){
+            break
+        }
+    }
+    
+
 
 }
 
+game()
 
 
-// const balance = getBalance();
-// const bet = getBet(balance);
-const deck = getDeck();
-
-const started = start(deck)
-
-console.log("Your cards: ")
-printDeck(started.playerCards)
-console.log("Croupier cards: ")
-printDeck(started.croupierCards)
-
-let flag = NaN;
-
-while (true){
-    console.log("Your cards: "+ started.playerCards)
-    const currPoints = sumPoints(started.playerCards)
-    console.log("You have "+ currPoints + " points")
-    if (currPoints > 21){
-        console.log("You lost with " + currPoints + " points")
-        flag = false
-        break
-    }
 
 
-    const cont = prompt("hit or stand? (h/s): ")
-    if (cont == "h"){
-        hit(started.playerCards, started.deck);
-    }else if (cont == "s"){
-        const final = currPoints
-        console.log("Your final score is " + final)
-        break
-    }else{
-        console.log("Wrong symbol, try again!")
-    }
-}
-// console.log(started.deck)
 
-const afterCroupierTurn = croupierTurn(started.deck, started.croupierCards, started.hiddenCard)
 
 
 
