@@ -203,8 +203,6 @@ const determineWinner = (playerCards, croupierCards) => {
 
 
 
-
-
 const game = () => {
     let balance = getBalance();
 
@@ -223,10 +221,12 @@ const game = () => {
 
 
         while (true){
+            
             console.log("Your cards: ")
             printDeck(started.playerCards)
             const currPoints = sumPoints(started.playerCards)
             console.log("You have "+ currPoints + " points")
+            console.log("-------------------------")
             if (currPoints > 21){
                 
                 break
@@ -244,14 +244,13 @@ const game = () => {
                 console.log("Wrong symbol, try again!")
             }
 
-            console.log("-------------------------")
+            
         }
 
         const afterCroupierTurn = croupierTurn(started.deck, started.croupierCards, started.hiddenCard)
 
         const result = determineWinner(started.playerCards, afterCroupierTurn)
 
-        console.log(result)
 
         if (result == "won"){
             balance += 2*bet;
