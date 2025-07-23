@@ -159,7 +159,8 @@ const sumPoints = (deckCards) => {
 const croupierTurn = (deckCards, croupierCards, hiddenCard) => {
     croupierCards[1] = hiddenCard
     // console.log("The hidden card is " + hiddenCard)
-    console.log("Croupier Cards: " + croupierCards)
+    console.log("Croupier Cards: ")
+    printDeck(croupierCards)
     let croupierSum = sumPoints(croupierCards)
 
     while (croupierSum < 17){
@@ -167,6 +168,7 @@ const croupierTurn = (deckCards, croupierCards, hiddenCard) => {
         console.log("Croupier cards: ")
         printDeck(croupierCards)
         croupierSum = sumPoints(croupierCards)
+        console.log("-------------------------")
     }
     console.log("Croupier final score: "+ croupierSum)
 
@@ -192,7 +194,7 @@ const determineWinner = (playerCards, croupierCards) => {
         result = "lost"
         console.log("You lost!")
     }else{
-        win = "draw"
+        result = "draw"
         console.log("It's a draw")
     }
 
@@ -213,15 +215,16 @@ const game = () => {
 
         const started = start(deck)
 
-        console.log("Your cards: ")
-        printDeck(started.playerCards)
+        // console.log("Your cards: ")
+        // printDeck(started.playerCards)
         console.log("Croupier cards: ")
         printDeck(started.croupierCards)
 
 
 
         while (true){
-            console.log("Your cards: "+ started.playerCards)
+            console.log("Your cards: ")
+            printDeck(started.playerCards)
             const currPoints = sumPoints(started.playerCards)
             console.log("You have "+ currPoints + " points")
             if (currPoints > 21){
@@ -240,11 +243,15 @@ const game = () => {
             }else{
                 console.log("Wrong symbol, try again!")
             }
+
+            console.log("-------------------------")
         }
 
         const afterCroupierTurn = croupierTurn(started.deck, started.croupierCards, started.hiddenCard)
 
         const result = determineWinner(started.playerCards, afterCroupierTurn)
+
+        console.log(result)
 
         if (result == "won"){
             balance += 2*bet;
