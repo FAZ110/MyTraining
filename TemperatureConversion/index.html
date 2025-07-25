@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature converter</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main>
+
+        <div class="main-container">
+            <div class="text-container">
+            <h2>Temperature Converter</h2>
+            <p>Enter the temperature, select units and submit</p>
+
+        </div>
+
+        <div class="converter-container">
+            <input type="number" placeholder="0.00" id="temp-input">
+            <select name="units-from" id="units-from" required>
+                <option value="" hidden selected>From unit</option>
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+
+            <select name="units-to" id="units-to" required>
+                <option value="" hidden selected>To unit</option>
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+
+            <button id="submit-button">Convert</button>
+        </div>
+
+        <p id="result"></p>
+        </div>
+        
+    </main>
+    
+
+
+    <script src="script.js"></script>
+</body>
+</html>
