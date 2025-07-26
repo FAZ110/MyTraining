@@ -1,6 +1,6 @@
 const cnt = document.getElementById('word-counter');
 const txtArea = document.getElementById('txt-area');
-const maxChar = 20;
+const maxChar = 250;
 
 const countWords = (text) =>{
     if (text.trim() === '') return 0;
