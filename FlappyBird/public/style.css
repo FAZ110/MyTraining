@@ -44,3 +44,31 @@ canvas{
     text-align: center;
     display: none;
 }
+
+#leaderboard{
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    border: 1px solid #333;
+    background-color: aliceblue;
+    padding: 0 5px;
+    
+}
+
+#playerName{
+    border: none;
+    padding: 5px 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#saveScore{
+    border: none;
+    background-color: #fff;
+    font: #333;
+    padding: 3px 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+}

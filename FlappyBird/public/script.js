@@ -1,8 +1,58 @@
+class LeaderboardDatabase {
+    constructor(apiUrl = '/api'){
+        this.apiUrl = apiUrl;
+        this.testConnection();
+    }
+
+    async testConnection() {
+        try{
+            const response = await fetch (`${this.apiUrl}/health`);
+            console.log('Database connection: ', response.ok? 'OK': 'Failed');
+        }catch (error){
+            console.error('Database connection failed: ' + error);
+        }
+    }
+
+    async getTopScores(limit = 10){
+        try {
+            const response = await fetch(`${this.apiUrl}/leaderboard?limit=${limit}`);
+            if (!response.ok) throw new Error('Failed to fetch scores');
+            const data = await response.json();
+            return data.scores || [];
+        } catch (error) {
+            console.error('Error fetching scores:', error);
+            return [];
+        }
+    }
+
+    async saveScore(name, score) {
+        try {
+            const response = await fetch(`${this.apiUrl}/leaderboard`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name.trim(), score })
+            });
+            
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error);
+            return data;
+        } catch (error) {
+            console.error('Error saving score:', error);
+            throw error;
+        }
+    }
+}
+
+const db = new LeaderboardDatabase('http://localhost:3000/api');
+
+
+
 const canvas = document.getElementById('gameCanvas')
 const ctx = canvas.getContext('2d')
 const scoreElement = document.getElementById('score')
 const gameOverElement = document.getElementById('gameOver')
 const finalScoreElement = document.getElementById('finalScore')
+const saveScorebtn = document.getElementById('saveScore')
 
 let gameState = 'playing';
 let score = 0;
@@ -145,6 +195,7 @@ const gameOver = () => {
     gameState = 'gameOver';
     finalScoreElement.textContent = score;
     gameOverElement.style.display = 'block';
+    showGameOver(score);
 }
 
 const resetGame = () => {
@@ -178,6 +229,69 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
         jump();
     }
+});
+
+
+
+
+
+// === LEADERBOARD FUNCTIONS ===
+async function updateLeaderboard() {
+    try {
+        const scores = await db.getTopScores(10);
+        const leaderboardList = document.getElementById('leaderboardList');
+        
+        if (scores.length === 0) {
+            leaderboardList.innerHTML = '<div>No scores yet!</div>';
+            return;
+        }
+        
+        leaderboardList.innerHTML = scores.map((entry, index) => `
+            <div style="display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #eee;">
+                <span>#${index + 1} ${entry.name}</span>
+                <span>${entry.score}</span>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error updating leaderboard:', error);
+        document.getElementById('leaderboardList').innerHTML = '<div>Error loading scores</div>';
+    }
+}
+
+async function savePlayerScore() {
+    const name = document.getElementById('playerName').value.trim();
+    const score = parseInt(document.getElementById('finalScore').textContent);
+    
+    if (!name) {
+        alert('Please enter your name!');
+        return;
+    }
+    
+    try {
+        await db.saveScore(name, score);
+        await updateLeaderboard(); // Refresh leaderboard
+        document.getElementById('gameOver').style.display = 'none';
+        document.getElementById('playerName').value = '';
+        alert('Score saved successfully!');
+    } catch (error) {
+        alert('Error saving score: ' + error.message);
+    }
+}
+
+// Call this when your game ends
+function showGameOver(finalScore) {
+    document.getElementById('finalScore').textContent = finalScore;
+    document.getElementById('gameOver').style.display = 'block';
+    document.getElementById('playerName').focus();
+}
+
+saveScorebtn.addEventListener('click', () => {
+    savePlayerScore();
+})
+
+// Initialize leaderboard when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    updateLeaderboard();
 });
 
 gameLoop();
