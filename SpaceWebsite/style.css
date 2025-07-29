@@ -14,6 +14,14 @@
     --bg-color: #0f0e31;
     --text-color: #f5f5f5;
     --hover-color: aqua;
+    --txt-shadow: 0 0 10px rgba(6, 124, 124, 0.6),
+    0 0 20px rgba(6, 124, 124, 0.6),
+    0 0 30px rgba(6, 124, 124, 0.6),
+    0 0 40px rgba(6, 124, 124, 0.6),
+    0 0 70px rgba(6, 124, 124, 0.6),
+    0 0 80px rgba(6, 124, 124, 0.6),
+    0 0 100px rgba(6, 124, 124, 0.6),
+    0 0 150px rgba(6, 124, 124, 0.6);
 }
 
 body{
@@ -51,14 +59,7 @@ span{
 
 .navlist a:hover{
     color: var(--hover-color);
-    text-shadow: 0 0 10px rgba(6, 124, 124, 0.6),
-    0 0 20px rgba(6, 124, 124, 0.6),
-    0 0 30px rgba(6, 124, 124, 0.6),
-    0 0 40px rgba(6, 124, 124, 0.6),
-    0 0 70px rgba(6, 124, 124, 0.6),
-    0 0 80px rgba(6, 124, 124, 0.6),
-    0 0 100px rgba(6, 124, 124, 0.6),
-    0 0 150px rgba(6, 124, 124, 0.6);
+    text-shadow: var(--txt-shadow)
 }
 
 #menu-icon{
@@ -67,6 +68,46 @@ span{
     cursor: pointer;
     margin-left: 25px;
     display: none;
+    position: relative;
+}
+
+.navlist-box{
+    display: none;
+    position: absolute;
+    right: 5%;
+    top: 50px;
+    color: var(--text-color);
+    background-color: #000;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 5;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    min-width: 200px;
+
+}
+
+.navlist-box li{
+    margin: 10px 0;
+}
+
+.navlist-box a{
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.navlist-box a:hover{
+    text-shadow: var(--txt-shadow);
+}
+
+@media screen and (max-width: 700px){
+    .navlist{
+        display: none;
+    }
+
+    #menu-icon{
+        display: block;
+    }
+    
 }
 
 .carousel{
@@ -196,11 +237,13 @@ span{
 
 .quote p{
  font-style: italic;
+ text-align: center;
 }
 
 .quote h3{
     padding: 10px;
     letter-spacing: 1.5px;
+   
 }
 
 
@@ -350,6 +393,23 @@ span{
     font-weight: 600;
 }
 
+.solar-system-page {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.solar-system-page h1 {
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    color: var(--hover-color);
+    text-shadow: var(--txt-shadow);
+}
+
+.solar-system-page .solar-system {
+    margin: 0 auto;
+    background: transparent;
+    padding: 100px;
+}
 
 
 footer{
@@ -361,4 +421,49 @@ footer{
     justify-content: center;
     align-items: center;
 }
+
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.guide{
+    margin: 10%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100px 100px;
+    max-width: 600px;
+    /* border: 1px solid #fff; */
+
+}
+
+.guide .guide-elem{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    /* border: 1px solid red; */
+}
+
+.guide button{
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border-radius: 7px;
+    margin-top: 5px;
+    box-shadow: 0 0 12px #000;
+    transition: .5s ease;
+}
+
+.guide button:hover{
+    box-shadow: 0 0 10px var(--hover-color);
+}
+
+
 
