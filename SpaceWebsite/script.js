@@ -28,18 +28,18 @@ function showSlide(idx){
 function nextSlide() {
     showSlide((current + 1) % items.length);
   }
-  function prevSlide() {
+function prevSlide() {
     showSlide((current - 1 + items.length) % items.length);
   }
-  function goToSlide(idx) {
+function goToSlide(idx) {
     showSlide(idx);
     resetInterval();
   }
   
-  nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
-  prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
+nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
   
-  function resetInterval() {
+function resetInterval() {
     clearInterval(interval);
     interval = setInterval(nextSlide, 8000);
   }
