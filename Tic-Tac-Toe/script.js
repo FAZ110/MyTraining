@@ -38,7 +38,6 @@ const winCombinations = [
     boxes.forEach(box => {
         box.addEventListener('click', (event) =>{
             const currBox = event.target
-            console.log(gameState)
 
             if (currBox.innerHTML === '' && turn % 2 === 0 && gameState === 'active'){
                 currBox.innerHTML = 'X'
@@ -110,7 +109,6 @@ const gameRestart = () => {
     moves = 0
     gameState = 'active'
     againBox.style.display = 'none';
-    console.log('click')
 }
 
 const showEnding = () => {
