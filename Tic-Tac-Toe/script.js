@@ -2,6 +2,10 @@ const turnSign = document.querySelector('#turn')
 const boxes = document.querySelectorAll('.box')
 const score = document.querySelector('#score')
 
+const againBox = document.querySelector('.playAgain')
+const btn = document.querySelector('#again')
+
+
 let turn = Math.floor(Math.random()*2);
 
 if (turn === 0){
@@ -12,6 +16,7 @@ if (turn === 0){
 
 let XTab = [];
 let OTab = [];
+let gameState = 'active'
 
 let Xwins = 0
 let Owins = 0
@@ -30,47 +35,50 @@ const winCombinations = [
 
 
 
-boxes.forEach(box => {
-    box.addEventListener('click', (event) =>{
-        const currBox = event.target
+    boxes.forEach(box => {
+        box.addEventListener('click', (event) =>{
+            const currBox = event.target
+            console.log(gameState)
 
-        if (currBox.innerHTML === '' && turn % 2 === 0){
-            currBox.innerHTML = 'X'
-            XTab.push(parseInt(currBox.id))
+            if (currBox.innerHTML === '' && turn % 2 === 0 && gameState === 'active'){
+                currBox.innerHTML = 'X'
+                XTab.push(parseInt(currBox.id))
 
-            if (XTab.length >= 3 && checkWin(XTab)){
-                Xwins++
-                score.innerHTML = Xwins + ':' + Owins 
-                gameRestart()
+                if (XTab.length >= 3 && checkWin(XTab)){
+                    Xwins++
+                    score.innerHTML = Xwins + ':' + Owins 
+                    showEnding()
 
+                }
+                moves++
+                turn++
+                turnSign.innerHTML = "Turn: O's turn"
+
+            }else if (currBox.innerHTML === '' && gameState === 'active'){
+                currBox.innerHTML = 'O'
+                OTab.push(parseInt(currBox.id))
+                if (OTab.length >= 3 && checkWin(OTab)){
+                    Owins++
+                    score.innerHTML = Xwins + ':' + Owins 
+                    showEnding()
+
+                }
+                moves++
+                turn++
+                turnSign.innerHTML = "Turn: X's turn"
+            }else{
+                alert('Click on an empty box!')
             }
-            moves++
-            turn++
-            turnSign.innerHTML = "Turn: O's turn"
 
-        }else if (currBox.innerHTML === ''){
-            currBox.innerHTML = 'O'
-            OTab.push(parseInt(currBox.id))
-            if (OTab.length >= 3 && checkWin(OTab)){
-                Owins++
-                score.innerHTML = Xwins + ':' + Owins 
-                gameRestart()
-
+            if (moves === 9){
+                showEnding()
             }
-            moves++
-            turn++
-            turnSign.innerHTML = "Turn: X's turn"
-        }else{
-            alert('Click on an empty box!')
-        }
+        
+        })
 
-        if (moves === 9){
-            gameRestart()
-        }
-    
     })
 
-})
+
 
 const checkWin = (tab) => {
     let win = false
@@ -100,4 +108,15 @@ const gameRestart = () => {
     XTab = []
     OTab = []
     moves = 0
+    gameState = 'active'
+    againBox.style.display = 'none';
+    console.log('click')
 }
+
+const showEnding = () => {
+    againBox.style.display = 'block';
+    gameState = 'inactive'
+
+}
+
+btn.addEventListener('click', gameRestart)
