@@ -1,17 +1,16 @@
 const prompt = require("prompt-sync")();
 
-const chars = ['0','1','2','3','4','5','6','7','8','9']
+const chars = [];
+for (var i=32; i<127; i++)
+  chars.push(String.fromCharCode(i));
+
+console.log(chars)
 
 
 const getPassword = () => {
 
-    while(true){
-        const password = prompt('Enter your password (available characters: [0-9]): ')
-
-        if (!isNaN(password)){
-            return password
-        }
-    }
+    const password = prompt('Enter your password: ')
+    return password
 }
 
 const generatePassword = (len) => {
@@ -58,62 +57,71 @@ const guessPasswordWithSet = (password) => {
 }
 
 
-const getNext = (str, len) => {
-    let num = parseInt(str);
-    num += 1
-    return num.toString().padStart(len, '0')
+
+
+const numberToGuess = (number, len) => {
+    let result = '';
+    for (let i = 0; i < len; i++) {
+        result = String.fromCharCode((number % 95) + 32) + result;
+        number = Math.floor(number / 95);
+    }
+    return result;
 }
 
 
-const linearPasswordGuess = (password) => {
-    const len = password.length
-    let attempts = 1;
-    let guess = ''
-
-    for (let i = 0; i < len; i++){
-        guess += '0'
-    }
+const linearPasswordExt = (password) => {
+    const len = password.length;
+    let attempts = 0;
+    let number = 0; 
     
-    console.log(`Cracking password of length ${len}`)
-    const startTime = Date.now()
+    console.log(`Cracking password: "${password}" (length ${len})`);
+    console.log(`Search space: ${Math.pow(95, len).toLocaleString()} possibilities`);
+    const startTime = Date.now();
     
-
-    while (true){
-        if (guess === password){
-            const endTime = Date.now()
-            // console.log('You guessed!!')
-            // console.log(`Attempts: ${attempts}`)
-            // console.log(`Time needed: ${endTime - startTime}ms`)
-            return {attempts, endTime, startTime}
-        }else{
-            guess = getNext(guess, len)
-            attempts ++
+    while (true) {
+        attempts++;
+        let guess = numberToGuess(number, len);
+        
+        if (guess === password) {
+            const endTime = Date.now();
+            console.log(`🎉 Password cracked: "${password}"`);
+            console.log(`Attempts: ${attempts.toLocaleString()}`);
+            console.log(`Number was: ${number}`);
+            console.log(`Time: ${endTime - startTime}ms`);
+            return;
         }
-
-
+        
+        // Show progress for longer searches
+        if (attempts % 10000 === 0) {
+            console.log(`Attempt ${attempts.toLocaleString()}: "${guess}" (number: ${number})`);
+        }
+        
+        number++; // ✅ Increment number for next guess
+        
+        // Safety check to prevent infinite loop
+        if (number >= Math.pow(95, len)) {
+            console.log(`Password "${password}" not found in search space!`);
+            return;
+        }
     }
-    
-
 }
 
-const password = getPassword();
+// const password = getPassword();
 
 
-
-// console.log(generatedPassword)
-const data = guessPasswordWithSet(password)
-const data1 = linearPasswordGuess(password)
+// const data = guessPasswordWithSet(password)
+// // const data1 = linearPasswordGuess(password)
 
 
-console.log("---------SUMMARY----------")
-console.log("Random with set method:")
-console.log(`Attempts: ${data.attempts}`)
-console.log(`Time needed: ${data.endTime - data.startTime}ms`)
-console.log('--------------------------')
-console.log("Linear method:")
-console.log(`Attempts: ${data1.attempts}`)
-console.log(`Time needed: ${data1.endTime - data1.startTime}ms`)
+// console.log("---------SUMMARY----------")
+// console.log("Random with set method:")
+// console.log(`Attempts: ${data.attempts}`)
+// console.log(`Time needed: ${data.endTime - data.startTime}ms`)
+// console.log('--------------------------')
+// console.log("Linear method:")
+// console.log(`Attempts: ${data1.attempts}`)
+// console.log(`Time needed: ${data1.endTime - data1.startTime}ms`)
 
-
+console.log(linearPasswordExt('dsf'))
 
 
